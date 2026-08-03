@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!--
+  ENGENHO DO VÔ · Ribeirão da Ilha, Florianópolis
+  Projeto conceitual não solicitado · Phosphoros Studio
+  v3 · cinco momentos, anatomia diferente em cada um
+
+  MAPA
+  01 tokens ............. :root
+  02 base ............... reset, tipo, .btn
+  03 topo + barra ....... .topo / .barra
+  04 M1 chegada ......... #m1
+  05 M2 a mesa .......... #mesa
+  06 M3 a semana ........ #semana
+  07 M4 a homenagem ..... #casa   (único bloco claro)
+  08 M5 ir .............. #ir
+  09 rodapé ............. .pe
+  10 JS dia da semana + schema
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Engenho do Vô · buffet livre de comida caseira no Ribeirão da Ilha</title>
+<meta name="description" content="Buffet livre de comida caseira em panela de barro sobre fogão a lenha, no Ribeirão da Ilha, Florianópolis. A partir de R$ 39,90, com estacionamento gratuito, espaço kids e pet friendly.">
+<link rel="canonical" href="https://www.engenhodovo.com.br/">
+<meta property="og:type" content="restaurant">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Engenho do Vô">
+<meta property="og:title" content="Engenho do Vô · buffet livre de comida caseira no Ribeirão da Ilha">
+<meta property="og:description" content="Panela de barro sobre fogão a lenha, na casa onde funcionava um dos maiores engenhos de farinha do Ribeirão. Buffet livre a partir de R$ 39,90.">
+<meta property="og:image" content="https://www.engenhodovo.com.br/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://www.engenhodovo.com.br/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1A1412">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231A1412'/%3E%3Cg stroke='%23B88A4A' stroke-width='2' fill='none'%3E%3Ccircle cx='16' cy='16' r='10'/%3E%3Ccircle cx='16' cy='16' r='3'/%3E%3Cpath d='M16 6v20M6 16h20M9 9l14 14M23 9L9 23'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== 01 tokens ===== */
+:root{
+  --cafe:#1A1412; --madeira:#2C211C; --card:#342723;
+  --creme:#F2ECE4; --bege:#D5C7B6; --telha:#A8342A;
+  --terra:#C56B3D; --ouro:#B88A4A; --oliva:#596542; --barro:#9C5A3C;
+  --max:1320px;
+}
+/* ===== 02 base ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--cafe);color:var(--bege);
+  font:400 17px/1.6 Archivo,system-ui,sans-serif;overflow-x:hidden;padding-bottom:74px}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:500;color:var(--creme);
+  letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
+h2{font-size:clamp(30px,5vw,58px)}
+h3{font-size:clamp(20px,2.3vw,27px);line-height:1.15}
+.env{max-width:var(--max);margin-inline:auto;padding-inline:clamp(18px,4vw,52px)}
+.rot{font:600 13px/1 Archivo,sans-serif;letter-spacing:.19em;text-transform:uppercase;color:var(--ouro)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;
+  padding:15px 28px;border-radius:3px;background:var(--telha);color:var(--creme);
+  font:600 15px/1 Archivo,sans-serif;transition:background .25s,transform .25s}
+.btn:hover{background:var(--terra);transform:translateY(-2px)}
+.btn.g{background:transparent;border:1px solid rgba(242,236,228,.4)}
+.btn.g:hover{background:rgba(242,236,228,.08);border-color:var(--creme);transform:translateY(-2px)}
+
+/* grão + luz, camadas fixas */
+.grao,.luz{position:fixed;inset:0;pointer-events:none}
+.luz{z-index:2;opacity:.2;mix-blend-mode:soft-light;
+  background:radial-gradient(ellipse 60% 40% at 12% 18%,rgba(197,107,61,.55),transparent 70%),
+             radial-gradient(ellipse 50% 45% at 82% 62%,rgba(184,138,74,.45),transparent 72%)}
+.grao{z-index:3;opacity:.13;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+@keyframes brasa{0%,100%{opacity:.32}45%{opacity:.56}}
+@keyframes vapor{0%{transform:translate3d(0,20px,0) scale(1);opacity:0}
+  35%{opacity:.45}100%{transform:translate3d(24px,-140px,0) scale(1.7);opacity:0}}
+@keyframes pisca{0%{box-shadow:0 0 0 0 rgba(89,101,66,.7)}70%{box-shadow:0 0 0 10px rgba(89,101,66,0)}100%{box-shadow:0 0 0 0 rgba(89,101,66,0)}}
+
+/* ===== 03 topo + barra ===== */
+.topo{position:absolute;top:0;left:0;right:0;z-index:8;display:flex;align-items:center;
+  justify-content:space-between;gap:16px;max-width:var(--max);margin-inline:auto;
+  padding:20px clamp(18px,4vw,52px)}
+.topo span.n{font-family:Newsreader,serif;font-size:20px;color:var(--creme);text-shadow:0 2px 18px rgba(0,0,0,.7)}
+.topo a{font:600 13px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--creme);border-bottom:1px solid rgba(184,138,74,.6);padding-bottom:3px;
+  text-shadow:0 2px 18px rgba(0,0,0,.7)}
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;gap:10px;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(44,33,28,.96);
+  border-top:1px solid rgba(184,138,74,.32)}
+.barra .p{flex:1;min-width:0}
+.barra .p b{display:block;font-family:Newsreader,serif;font-size:20px;color:var(--creme);line-height:1.1}
+.barra .p i{font-style:normal;font-size:13px;color:var(--bege)}
+.barra a{padding:13px 16px;border-radius:3px;font:600 14px/1 Archivo,sans-serif;white-space:nowrap}
+.barra a.z{background:var(--telha);color:var(--creme)}
+.barra a.i{border:1px solid rgba(184,138,74,.55);color:var(--creme)}
+
+/* ===== 04 M1 chegada ===== */
+#m1{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+#m1>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;z-index:0}
+#m1 .veu{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,
+  rgba(26,20,18,.7) 0%,rgba(26,20,18,.15) 30%,rgba(26,20,18,.85) 74%,var(--cafe) 100%)}
+#m1 .fogo{position:absolute;left:50%;bottom:-12%;width:min(1100px,140vw);height:46vh;
+  transform:translateX(-50%);z-index:1;filter:blur(18px);animation:brasa 7s ease-in-out infinite;
+  background:radial-gradient(ellipse at 50% 100%,rgba(197,107,61,.5),rgba(168,52,42,.16) 45%,transparent 72%)}
+#m1 .vap{position:absolute;inset:0;z-index:1;overflow:hidden}
+#m1 .vap i{position:absolute;bottom:32%;width:130px;height:130px;border-radius:50%;filter:blur(28px);
+  background:radial-gradient(circle,rgba(242,236,228,.45),transparent 70%);animation:vapor 12s linear infinite}
+#m1 .vap i:nth-child(2){left:47%;animation-duration:14s;animation-delay:3.5s}
+#m1 .vap i:nth-child(1){left:18%}
+#m1 .vap i:nth-child(3){left:74%;animation-duration:12.5s;animation-delay:7s}
+#m1 .env{position:relative;z-index:5;width:100%;padding-block:clamp(90px,14vh,130px) clamp(104px,12vh,116px)}
+#m1 h1{font-size:clamp(40px,8.6vw,98px);max-width:14ch;margin:16px 0 0;
+  text-shadow:0 6px 40px rgba(26,20,18,.7)}
+#m1 .kick{display:flex;align-items:center;gap:12px}
+#m1 .kick s{display:block;width:34px;height:1px;background:var(--ouro);text-decoration:none}
+#m1 .preco{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-top:32px;
+  padding-top:22px;border-top:1px solid rgba(184,138,74,.34)}
+#m1 .preco b{font-family:Newsreader,serif;font-weight:500;font-size:clamp(30px,5.4vw,46px);
+  color:var(--creme);line-height:1;font-variant-numeric:tabular-nums}
+#m1 .preco span{font-size:15px}
+#m1 .acs{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+/* ===== 05 M2 a mesa ===== */
+#mesa{padding-block:clamp(56px,8vw,104px) 0;position:relative;z-index:4}
+#mesa .cab{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;
+  gap:20px 40px;margin-bottom:clamp(30px,4vw,48px)}
+#mesa .cab h2{max-width:16ch}
+#mesa .cab p{font-size:clamp(16px,1.9vw,19px);max-width:30ch}
+.sangra{width:100%;height:clamp(300px,52vw,620px);object-fit:cover;object-position:center 62%}
+.mosaico{display:grid;gap:8px;margin-top:8px}
+.mosaico img{width:100%;height:100%;object-fit:cover}
+.mosaico .a{grid-area:a}.mosaico .b{grid-area:b}
+.mosaico .c{grid-area:c}.mosaico .d{grid-area:d}
+.atrib{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:26px;font-size:15px;color:var(--bege)}
+.atrib span{position:relative;padding-left:16px}
+.atrib span::before{content:"";position:absolute;left:0;top:11px;width:8px;height:1px;background:var(--ouro)}
+
+/* ===== 06 M3 a semana ===== */
+#semana{background:var(--madeira);position:relative;z-index:4;
+  padding-block:clamp(52px,7vw,92px);border-top:1px solid rgba(184,138,74,.2)}
+.hoje{display:grid;gap:18px 34px;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));
+  padding-bottom:clamp(38px,5vw,58px);border-bottom:1px solid rgba(184,138,74,.22)}
+.hoje .k{display:block;font:600 13px/1 Archivo,sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ouro);margin-bottom:8px}
+.hoje .v{font-family:Newsreader,serif;font-size:clamp(22px,3.2vw,32px);color:var(--creme);line-height:1.12}
+.status{display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  font:600 13px/1 Archivo,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--creme)}
+.status i{width:9px;height:9px;border-radius:50%;background:var(--oliva);animation:pisca 2.6s ease-out infinite}
+.status.off i{background:var(--telha);animation:none}
+.dias{display:grid;gap:10px;margin-top:clamp(36px,5vw,56px)}
+.dia{position:relative;overflow:hidden;border-radius:2px;background:var(--card);
+  min-height:210px;display:flex;align-items:flex-end;padding:22px}
+.dia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.dia .sombra{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(26,20,18,.15) 30%,rgba(26,20,18,.88) 100%)}
+.dia .txt{position:relative;z-index:2}
+.dia .d{font:600 13px/1 Archivo,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.dia h3{margin:9px 0 6px}
+.dia p{font-size:15px;color:var(--bege);max-width:34ch}
+.dia.seco{background:var(--card);min-height:170px}
+.dia.inv{background:var(--oliva)}
+.dia.inv .d{color:#E4E2D0}
+.dia.inv p{color:#E4E2D0}
+.precos{margin-top:clamp(40px,5vw,60px)}
+.precos caption{text-align:left;font:600 13px/1 Archivo,sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ouro);padding-bottom:16px}
+table.precos{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.precos th,table.precos td{text-align:left;padding:15px 12px 15px 0;
+  border-bottom:1px solid rgba(184,138,74,.22)}
+table.precos thead th{font:600 13px/1.3 Archivo,sans-serif;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--bege)}
+table.precos td.d{font-family:Newsreader,serif;font-size:20px;color:var(--creme)}
+table.precos td.l{font-family:Newsreader,serif;font-size:22px;color:var(--terra);white-space:nowrap}
+table.precos td.h,table.precos td.q{font-size:15px;white-space:nowrap}
+.obs{margin-top:20px;font-size:15px;max-width:60ch;color:var(--bege)}
+
+/* ===== 07 M4 a homenagem (claro) ===== */
+#casa{position:relative;z-index:4;color:#3A2A22;
+  background:linear-gradient(180deg,var(--madeira) 0%,#8A7660 3%,var(--creme) 9%,var(--creme) 100%)}
+#casa .env{padding-block:clamp(70px,10vw,130px) 0;text-align:center}
+#casa .rot{color:var(--barro)}
+#casa .perg{font-family:Newsreader,serif;font-size:clamp(32px,6.4vw,72px);color:#241A15;
+  line-height:1.05;letter-spacing:-.02em;max-width:16ch;margin:18px auto 0;text-wrap:balance}
+.moldura{margin:clamp(48px,7vw,84px) auto 0;max-width:560px;padding:clamp(14px,2vw,22px);
+  background:linear-gradient(160deg,#C9A45E,#8E6A33 42%,#D8BC7C 60%,#7A5A2B);
+  border-radius:6px;box-shadow:0 26px 60px rgba(58,42,34,.34)}
+.moldura .interno{padding:6px;background:#3A2A22;border-radius:2px}
+.moldura img{width:100%;border-radius:1px}
+#casa figcaption{margin-top:18px;font:500 14px/1.5 Archivo,sans-serif;
+  letter-spacing:.13em;text-transform:uppercase;color:#7A6455}
+.homenagem{max-width:52ch;margin:clamp(44px,6vw,72px) auto 0;text-align:left}
+.homenagem p{font-family:Newsreader,serif;font-size:clamp(18px,2.1vw,22px);
+  line-height:1.55;color:#3A2A22;margin-bottom:20px}
+.homenagem p:last-child{margin-bottom:0;color:#241A15}
+#casa .fach{width:100%;height:clamp(240px,42vw,520px);object-fit:cover;
+  object-position:center 58%;margin-top:clamp(56px,8vw,100px)}
+
+/* ===== 08 M5 ir ===== */
+#ir{position:relative;z-index:4;background:linear-gradient(180deg,#EAE0D2 0%,#5A463A 4%,var(--cafe) 14%,var(--cafe) 100%);
+  padding-block:clamp(60px,8vw,110px) clamp(40px,5vw,64px)}
+#ir .g{display:grid;gap:clamp(30px,5vw,60px);align-items:center}
+#ir img.sr{width:100%;border-radius:2px}
+#ir .end{font-family:Newsreader,serif;font-size:clamp(21px,2.6vw,28px);color:var(--creme);
+  line-height:1.35;margin:16px 0 14px}
+.tempos{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:15px;color:var(--bege);margin-bottom:22px}
+.tempos b{font-family:Newsreader,serif;font-size:17px;color:var(--creme)}
+.nota{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin:30px 0 8px;
+  padding-top:26px;border-top:1px solid rgba(184,138,74,.24)}
+.nota b{font-family:Newsreader,serif;font-size:clamp(34px,5vw,48px);color:var(--creme);line-height:1}
+.nota .est{color:var(--ouro);font-size:17px;letter-spacing:.16em}
+.nota span{font-size:15px}
+.fila{font-size:15px;color:var(--bege);max-width:56ch;margin-top:14px}
+#ir .acs{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+
+/* ===== 09 rodapé ===== */
+.pe{position:relative;z-index:4;background:var(--cafe);padding-block:0 clamp(40px,5vw,66px);font-size:15px}
+.pe .g{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  padding-top:clamp(34px,4vw,50px);border-top:1px solid rgba(184,138,74,.22)}
+.pe h3{font-size:17px;margin-bottom:11px}
+.pe p{margin-bottom:5px}
+.pe a{color:var(--terra)}
+.pe a:hover{color:var(--creme)}
+.pe .leg{margin-top:34px;padding-top:18px;border-top:1px solid rgba(213,199,182,.13);
+  font-size:13px;line-height:1.6;color:#8C7C6C}
+
+/* ===== responsivo ===== */
+@media(max-width:719px){
+  .mosaico{grid-template-areas:"a a" "c d" "b b";grid-auto-rows:minmax(150px,auto)}
+  .mosaico .a{height:230px}.mosaico .b{height:210px}
+  .mosaico .c,.mosaico .d{height:190px}
+  /* tabela vira blocos */
+  table.precos,table.precos tbody,table.precos tr,table.precos td{display:block;width:100%}
+  table.precos thead{position:absolute;left:-9999px}
+  table.precos tr{padding:16px 0;border-bottom:1px solid rgba(184,138,74,.22)}
+  table.precos td{border:0;padding:2px 0}
+  table.precos td.l::before{content:"livre ";font-family:Archivo,sans-serif;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--bege)}
+  table.precos td.q::before{content:"quilo ";font-size:13px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ouro)}
+  table.precos td.l{display:inline-block;margin-right:18px}
+  table.precos td.q{display:inline-block}
+}
+@media(min-width:720px){
+  .mosaico{grid-template-areas:"a a a a c c" "d d b b b b";
+    grid-template-columns:repeat(6,1fr);grid-template-rows:clamp(230px,26vw,360px) clamp(200px,22vw,310px)}
+  .dias{grid-template-columns:repeat(2,1fr)}
+  .dia.wide{grid-column:span 2;min-height:180px}
+}
+@media(min-width:1000px){
+  #ir .g{grid-template-columns:.75fr 1fr}
+  .dias{grid-template-columns:repeat(4,1fr)}
+  .dia.wide{grid-column:span 4}
+  body{padding-bottom:0}
+  .barra{position:static;justify-content:flex-end;background:transparent;border-top:0;
+    max-width:var(--max);margin-inline:auto;padding:0 clamp(18px,4vw,52px) 40px}
+  .barra .p{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="luz" aria-hidden="true"></div>
+<div class="grao" aria-hidden="true"></div>
+
+<header class="topo">
+  <span class="n">Engenho do Vô</span>
+  <a id="zapTopo" href="https://wa.me/5548991203942" target="_blank" rel="noopener">WhatsApp</a>
+</header>
+
+<!-- ===== M1 CHEGADA ===== -->
+<section id="m1">
+  <picture>
+    <source media="(min-width:820px)" srcset="assets/buffet-wide.webp">
+    <img src="assets/buffet-tall.webp" alt="Panelas de barro cheias de comida caseira sobre o fogão a lenha do buffet" width="1000" height="1333" fetchpriority="high">
+  </picture>
+  <div class="veu" aria-hidden="true"></div>
+  <div class="fogo" aria-hidden="true"></div>
+  <div class="vap" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="env">
+    <p class="kick"><s></s><span class="rot">Buffet livre de comida caseira</span></p>
+    <h1>No engenho do avô, há vinte anos.</h1>
+    <div class="preco">
+      <b>A partir de R$ 39,90</b>
+      <span>almoço de segunda a sexta, 11h às 14h30 · Ribeirão da Ilha</span>
+    </div>
+    <div class="acs">
+      <a class="btn" href="#mesa">Ver a mesa</a>
+      <a class="btn g" href="#ir">Como chegar</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== M2 A MESA ===== -->
+<section id="mesa">
+  <div class="env">
+    <div class="cab">
+      <h2>Tudo em panela de barro,<br>sobre fogão a lenha.</h2>
+      <p>Come à vontade ou paga por quilo. Você escolhe no balcão.</p>
+    </div>
+  </div>
+  <img class="sangra" src="assets/balcao.webp" alt="Cliente se servindo no balcão do buffet, entre panelas de barro com feijão, carnes e legumes" width="1900" height="1418" loading="lazy">
+  <div class="mosaico">
+    <img class="a" src="assets/saladas.webp" alt="Ilha de saladas do buffet, com folhas, legumes e conservas coloridas" width="1200" height="800" loading="lazy">
+    <img class="c" src="assets/salada.webp" alt="Prato de salada sendo montado sobre a ilha de saladas" width="1000" height="1000" loading="lazy">
+    <img class="d" src="assets/massa.webp" alt="Massa sendo servida com pegador, saindo da panela de barro" width="1000" height="1000" loading="lazy">
+    <img class="b" src="assets/fritos.webp" alt="Frango frito, batata e pimentões no balcão quente do buffet" width="1200" height="800" loading="lazy">
+  </div>
+  <div class="env">
+    <p class="atrib">
+      <span>Estacionamento gratuito</span><span>Espaço kids</span><span>Pet friendly</span>
+      <span>Comida para viagem</span><span>Delivery pelo iFood</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== M3 A SEMANA ===== -->
+<section id="semana">
+  <div class="env">
+    <p class="status" id="status"><i></i><span id="statusTxt">Carregando</span></p>
+    <div class="hoje">
+      <div><span class="k">Hoje, <span id="nomeDia">…</span></span><span class="v" id="hojePrato">…</span></div>
+      <div><span class="k">Buffet livre hoje</span><span class="v" id="hojeLivre">…</span></div>
+      <div><span class="k">Horário de hoje</span><span class="v" id="hojeHora">…</span></div>
+    </div>
+
+    <div class="dias">
+      <article class="dia">
+        <img src="assets/dobradinha.webp" alt="Concha tirando dobradinha fumegante da panela de barro" width="1000" height="1339" loading="lazy">
+        <div class="sombra" aria-hidden="true"></div>
+        <div class="txt"><p class="d">Sexta</p><h3>Dobradinha</h3>
+        <p>Aparece uma vez por semana, feita do jeito antigo.</p></div>
+      </article>
+      <article class="dia">
+        <img src="assets/feijoada.webp" alt="Panelas de barro com feijoada e acompanhamentos no balcão" width="816" height="1147" loading="lazy">
+        <div class="sombra" aria-hidden="true"></div>
+        <div class="txt"><p class="d">Sábado</p><h3>Feijoada</h3>
+        <p>Com couve, torresmo, farofa e laranja. Caipirinha em dobro o dia inteiro.</p></div>
+      </article>
+      <article class="dia seco">
+        <div class="txt"><p class="d">Domingo</p><h3>Caseira e frutos do mar</h3>
+        <p>O buffet de sempre ganha o mar do Ribeirão junto. É o dia mais cheio da casa.</p></div>
+      </article>
+      <article class="dia inv">
+        <img src="assets/sopa.webp" alt="Concha despejando sopa cremosa num prato, no buffet de sopas do inverno" width="1000" height="1339" loading="lazy">
+        <div class="sombra" aria-hidden="true"></div>
+        <div class="txt"><p class="d">Quartas de junho e julho</p><h3>Buffet de sopas</h3>
+        <p>A mesa vira sopa, salgada e doce, com os pães da casa.</p></div>
+      </article>
+    </div>
+
+    <table class="precos">
+      <caption>Preços e horários</caption>
+      <thead><tr><th scope="col">Dia</th><th scope="col">Horário</th><th scope="col">Livre</th><th scope="col">Quilo</th></tr></thead>
+      <tbody>
+        <tr><td class="d">Segunda a sexta</td><td class="h">11h às 14h30</td><td class="l">R$ 39,90</td><td class="q">R$ 76,90/kg</td></tr>
+        <tr><td class="d">Sábado</td><td class="h">11h às 15h</td><td class="l">R$ 59,90</td><td class="q">R$ 109,90/kg</td></tr>
+        <tr><td class="d">Domingo e feriados</td><td class="h">11h às 15h</td><td class="l">R$ 69,90</td><td class="q">R$ 129,90/kg</td></tr>
+      </tbody>
+    </table>
+    <p class="obs">De segunda a sexta o livre começa a valer a pena a partir de meio quilo no prato. Come pouco, vai de quilo. Come bem, vai de livre.</p>
+  </div>
+</section>
+
+<!-- ===== M4 A HOMENAGEM ===== -->
+<section id="casa">
+  <div class="env">
+    <p class="rot">A casa</p>
+    <p class="perg">Você sabe de quem é o vô do nome?</p>
+
+    <figure class="moldura">
+      <div class="interno">
+        <img src="assets/fundadores.webp" alt="Ilustração do retrato de Valésia e Manoel Peixoto, feita a partir da fotografia emoldurada que fica na parede do salão" width="1600" height="893" loading="lazy">
+      </div>
+    </figure>
+    <figcaption>Valésia e Manoel Peixoto</figcaption>
+
+    <div class="homenagem">
+      <p>Seu Manoel Peixoto moía cana e mandioca neste terreno. O engenho dele era um dos maiores do Ribeirão da Ilha.</p>
+      <p>Em 2006 ele e dona Valésia entregaram a casa para a família abrir o restaurante. O prédio é o mesmo. As rodas de carroça no muro vieram do engenho.</p>
+      <p>Vinte anos depois, o mesmo fogão a lenha acende todo dia. Quem assina a cozinha é a Sandra Regina.</p>
+    </div>
+  </div>
+  <img class="fach" src="assets/fachada.webp" alt="Varanda do restaurante, com telhado colonial, pilares de tronco e rodas de carroça no muro de tijolo" width="1400" height="781" loading="lazy">
+</section>
+
+<!-- ===== M5 IR ===== -->
+<section id="ir">
+  <div class="env g">
+    <img class="sr" src="assets/chef.webp" alt="A chef Sandra Regina servindo com a concha uma panela de barro no balcão" width="1000" height="1012" loading="lazy">
+    <div>
+      <p class="rot">Vir até aqui</p>
+      <p class="end">Rod. Baldicero Filomeno, 4139<br>Ribeirão da Ilha, Florianópolis</p>
+      <p class="tempos">
+        <span><b>15 min</b> do Campeche</span><span><b>20 min</b> do aeroporto</span>
+        <span><b>35 min</b> do Centro</span>
+      </p>
+      <p>Estacionamento gratuito na porta. Você não vai rodar atrás de vaga.</p>
+
+      <p class="nota"><span class="est" aria-hidden="true">★★★★★</span><b>4,6</b>
+        <span>3.340 avaliações no Google · 4,8 no iFood</span></p>
+      <p class="fila">Sábado e domingo enche no horário cheio do almoço. Chegando antes das 12h ou depois das 13h30, você senta direto.</p>
+
+      <div class="acs">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Engenho+do+V%C3%B4+Rod.+Baldicero+Filomeno+4139+Ribeir%C3%A3o+da+Ilha" target="_blank" rel="noopener">Como chegar</a>
+        <a class="btn g" href="https://www.ifood.com.br/delivery/florianopolis-sc/restaurante-engenho-do-vo-ribeirao-da-ilha/d14bbac6-d4cf-4bd5-88b6-4d9994303da7" target="_blank" rel="noopener">Pedir no iFood</a>
+        <a class="btn g" id="zapIr" href="https://wa.me/5548991203942" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== rodapé ===== -->
+<footer class="pe">
+  <div class="env">
+    <div class="g">
+      <div>
+        <h3>Engenho do Vô</h3>
+        <p>Rod. Baldicero Filomeno, 4139</p>
+        <p>Ribeirão da Ilha</p>
+        <p>Florianópolis, SC, 88064-001</p>
+      </div>
+      <div>
+        <h3>Almoço</h3>
+        <p>Segunda a sexta, 11h às 14h30</p>
+        <p>Sábado, 11h às 15h</p>
+        <p>Domingo e feriados, 11h às 15h</p>
+      </div>
+      <div>
+        <h3>Falar com a casa</h3>
+        <p><a id="zapPe" href="https://wa.me/5548991203942" target="_blank" rel="noopener">WhatsApp (48) 99120-3942</a></p>
+        <p><a href="tel:+554833374696">(48) 3337-4696</a></p>
+        <p><a href="https://www.instagram.com/restauranteengenho/" target="_blank" rel="noopener">@restauranteengenho</a></p>
+      </div>
+      <div>
+        <h3>Pedir em casa</h3>
+        <p><a href="https://www.ifood.com.br/delivery/florianopolis-sc/restaurante-engenho-do-vo-ribeirao-da-ilha/d14bbac6-d4cf-4bd5-88b6-4d9994303da7" target="_blank" rel="noopener">Cardápio no iFood</a></p>
+        <p>Entrega em 55 a 65 minutos</p>
+      </div>
+    </div>
+    <p class="leg">Projeto conceitual não solicitado, criado por Phosphoros Studio como estudo de caso. Sem vínculo com o restaurante. Imagens do acervo público do estabelecimento.</p>
+  </div>
+</footer>
+
+<nav class="barra" aria-label="Ações rápidas">
+  <div class="p"><b id="barraPreco">R$ 39,90</b><i id="barraTxt">buffet livre hoje</i></div>
+  <a class="i" href="https://www.ifood.com.br/delivery/florianopolis-sc/restaurante-engenho-do-vo-ribeirao-da-ilha/d14bbac6-d4cf-4bd5-88b6-4d9994303da7" target="_blank" rel="noopener">iFood</a>
+  <a class="z" id="zapBarra" href="https://wa.me/5548991203942" target="_blank" rel="noopener">WhatsApp</a>
+</nav>
+
+<script>
+(function(){
+  var dias=[
+    {n:"domingo",       p:"Caseira e frutos do mar",        l:"R$ 69,90", ab:11, fe:15,   h:"11h às 15h"},
+    {n:"segunda-feira", p:"Buffet livre de comida caseira", l:"R$ 39,90", ab:11, fe:14.5, h:"11h às 14h30"},
+    {n:"terça-feira",   p:"Buffet livre de comida caseira", l:"R$ 39,90", ab:11, fe:14.5, h:"11h às 14h30"},
+    {n:"quarta-feira",  p:"Buffet livre de comida caseira", l:"R$ 39,90", ab:11, fe:14.5, h:"11h às 14h30"},
+    {n:"quinta-feira",  p:"Buffet livre de comida caseira", l:"R$ 39,90", ab:11, fe:14.5, h:"11h às 14h30"},
+    {n:"sexta-feira",   p:"Dobradinha",                     l:"R$ 39,90", ab:11, fe:14.5, h:"11h às 14h30"},
+    {n:"sábado",        p:"Feijoada e caipirinha em dobro", l:"R$ 59,90", ab:11, fe:15,   h:"11h às 15h"}
+  ];
+  var ag=new Date(), d=dias[ag.getDay()], m=ag.getMonth();
+  if(ag.getDay()===3 && (m===5||m===6)) d=Object.assign({},d,{p:"Buffet de sopas da casa"});
+
+  var hora=ag.getHours()+ag.getMinutes()/60, aberto=hora>=d.ab&&hora<d.fe;
+  var st=document.getElementById("status");
+  st.className=aberto?"status":"status off";
+  document.getElementById("statusTxt").textContent=
+    aberto?("Aberto agora, fecha às "+d.h.split(" às ")[1]):"Fechado agora";
+
+  document.getElementById("nomeDia").textContent=d.n;
+  document.getElementById("hojePrato").textContent=d.p;
+  document.getElementById("hojeLivre").textContent=d.l;
+  document.getElementById("hojeHora").textContent=d.h;
+  document.getElementById("barraPreco").textContent=d.l;
+  document.getElementById("barraTxt").textContent=aberto?("aberto até "+d.h.split(" às ")[1]):("hoje, "+d.h);
+
+  var url="https://wa.me/5548991203942?text="+
+    encodeURIComponent("Olá! Vi o site de vocês e queria saber sobre o buffet de "+d.n+".");
+  ["zapTopo","zapIr","zapPe","zapBarra"].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.href=url;
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Restaurant","name":"Engenho do Vô",
+  "url":"https://www.engenhodovo.com.br/","image":"https://www.engenhodovo.com.br/assets/og.jpg",
+  "servesCuisine":"Comida caseira brasileira","priceRange":"R$ 39,90 - R$ 69,90",
+  "telephone":"+55-48-3337-4696",
+  "hasMenu":"https://www.ifood.com.br/delivery/florianopolis-sc/restaurante-engenho-do-vo-ribeirao-da-ilha/d14bbac6-d4cf-4bd5-88b6-4d9994303da7",
+  "address":{"@type":"PostalAddress","streetAddress":"Rod. Baldicero Filomeno, 4139",
+    "addressLocality":"Florianópolis","addressRegion":"SC","postalCode":"88064-001","addressCountry":"BR"},
+  "geo":{"@type":"GeoCoordinates","latitude":-27.700996,"longitude":-48.5463443},
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":"3340"},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"11:00","closes":"14:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"11:00","closes":"15:00"}
+  ],
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Estacionamento gratuito","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Espaço kids","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Pet friendly","value":true}
+  ]
+}
+</script>
+</body>
+</html>
